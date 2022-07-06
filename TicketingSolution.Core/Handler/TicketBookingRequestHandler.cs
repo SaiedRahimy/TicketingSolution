@@ -22,6 +22,8 @@ namespace TicketingSolution.Core
 
             var availableTickets = _ticketBoockingService.GetAvailableTickets(bookingRequest.Date);
             var result = ConvertBoockingModels<ServiceBookigResult>(bookingRequest);
+
+
             result.Flag = Enums.BookingResultFlag.Failure;
             result.TicketBookingId = null;
 
@@ -37,6 +39,7 @@ namespace TicketingSolution.Core
                 _ticketBoockingService.Save(ticketBooking);
             }
 
+            //result.Name = "hosein";
 
             return result;
 

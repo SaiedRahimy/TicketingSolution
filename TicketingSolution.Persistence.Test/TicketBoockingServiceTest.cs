@@ -69,5 +69,35 @@ namespace TicketingSolution.Persistence.Test
             //Assert.DoesNotContain(availableServices, q => q.ID == 3);
 
         }
+
+        [Fact]
+        public void Relation_Error()
+        {
+            var date = new DateTime(2022, 07, 03);
+
+            var dbOptions = new DbContextOptionsBuilder<TicketingSolutionDbContext>().
+                UseInMemoryDatabase("RelationTest", op => op.EnableNullChecks(false)).Options;
+
+            using var context = new TicketingSolutionDbContext(dbOptions);
+            context.Add(new Ticket { ID = 1,  });
+                        
+            context.Add(new TicketBooking { Id = 2, TicketID = 2, Date = date.AddDays(-1) });
+
+
+            context.SaveChanges();
+
+            var ticketBookingService = new TicketBookingService(context);
+
+
+
+            //Act
+            var availableServices = ticketBookingService.GetAvailableTickets(date);
+
+
+            //Assert
+
+            Assert.Equal(1, availableServices.Count());
+           
+        }
     }
 }

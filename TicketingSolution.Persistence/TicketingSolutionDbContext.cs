@@ -21,7 +21,7 @@ namespace TicketingSolution.Persistence
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<TicketBooking>().HasKey(c=>c.Id);
+            modelBuilder.Entity<TicketBooking>().HasKey(c=>c.Id);            
             modelBuilder.Entity<Ticket>().HasData(
                 new Ticket { ID = 1, Name = "Shiraz" },
                 new Ticket { ID = 2, Name = "esfahan" },
